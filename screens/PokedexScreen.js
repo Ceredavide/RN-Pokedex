@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -7,6 +7,8 @@ import {
   FlatList,
   Alert
 } from "react-native";
+
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import ButtonPokemon from "../components/pokedex/ButtonPokemon";
 
@@ -24,16 +26,13 @@ export default class PokedexScrenn extends React.Component {
     this.fetchData();
   };
 
-  //   this.setState({data: data.results, loading: false})
-  //   console.log(data.results)
-
   fetchData = async () => {
     try {
       await fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151")
         .then(res => res.json())
-        .then(data => {
-          this.setState({ pkmnList: data.results, loading: false });
-        });
+        .then(data =>
+          this.setState({ pkmnList: data.results, loading: false })
+        );
     } catch (error) {
       this.setState({ loading: false });
       Alert.alert(error.toString());
@@ -41,16 +40,22 @@ export default class PokedexScrenn extends React.Component {
   };
 
   render() {
+    const {pkmnList, loading} = this.state
+
     return (
       <SafeAreaView>
         <View style={styles.container}>
-          {this.state.loading ? (
-            <ActivityIndicator />
+          {loading ? (
+            <ActivityIndicator style={{ marginBottom: hp("50%") }} />
           ) : (
             <FlatList
-              data={this.state.pkmnList}
+              data={pkmnList}
               renderItem={({ item, index }) => (
-                <ButtonPokemon name={item.name} index={index} />
+                <ButtonPokemon
+                  name={item.name}
+                  index={index}
+                  navigation={this.props.navigation}
+                />
               )}
               keyExtractor={item => item.url}
             />

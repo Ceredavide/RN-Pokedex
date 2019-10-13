@@ -8,7 +8,7 @@ import {
 
 import ButtonHome from "../components/home/ButtonHome";
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>React-Native Pokedex</Text>
@@ -19,7 +19,7 @@ const HomeScreen = () => {
           marginBottom: hp("1%")
         }}
       >
-        <ButtonHome text="Pokedex" color="#70CDB2" />
+        <ButtonHome text="Pokedex" color="#70CDB2" navigation={navigation}/>
         <ButtonHome text="Moves" color="#EC7674" />
       </View>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
