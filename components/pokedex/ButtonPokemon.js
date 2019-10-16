@@ -11,6 +11,7 @@ const ButtonPokemon = ({ name, index, navigation }) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
+  //TODO aggiungere 0 prima del numero se più piccollo di 100
   function renderNumber(index) {
     return `#${index}`;
   }
@@ -23,7 +24,7 @@ const ButtonPokemon = ({ name, index, navigation }) => {
     >
       <Text style={styles.text}>{capitalizeLetter(name)}</Text>
       <View style={{ flexDirection: "row" }}>
-        <Text style={styles.number}>{renderNumber(index)}</Text>
+        <Text style={styles.number}>{renderNumber(index + 1)}</Text>
         <Image
           style={styles.image}
           source={{

@@ -3,10 +3,13 @@ import {
   StyleSheet,
   SafeAreaView,
   View,
+  Image,
   ActivityIndicator,
   Text,
   Alert
 } from "react-native";
+
+import loadable from "@loadable/component";
 
 import {
   heightPercentageToDP as hp,
@@ -15,21 +18,20 @@ import {
 
 import { Ionicons } from "@expo/vector-icons";
 
+const PokemonCard = loadable(() => import("../components/pokemon/PokemonCard"));
+
 export default class PokemonScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
-      pkmnInfo: {
-        types: []
-      }
-    };
-
-    this.componentDidMount = () => {
-      this.setState({ loading: true });
-      this.fetchData(this.props.navigation.getParam("index"));
+      loading: false
     };
   }
+
+  componentDidMount = () => {
+    this.setState({ loading: true });
+    this.fetchData(this.props.navigation.getParam("index"));
+  };
 
   fetchData = async index => {
     try {
@@ -50,35 +52,31 @@ export default class PokemonScreen extends React.Component {
     const { pkmnInfo, loading } = this.state;
     const { navigation } = this.props;
 
-    const name = navigation.getParam('name')
+    const name = navigation.getParam("name");
+    const index = navigation.getParam("index");
 
     return (
       <SafeAreaView>
+        <View style={styles.header}>
+          <Ionicons
+            name="ios-arrow-round-back"
+            size={hp("5%")}
+            color="black"
+            onPress={() => navigation.goBack()}
+          />
+          <Text style={styles.title}>{this.capitalizeLetter(name)}</Text>
+        </View>
+        <Image
+          style={styles.image}
+          source={{
+            uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index +
+              1}.png`
+          }}
+        />
         {loading ? (
-          <ActivityIndicator style={{ marginBottom: hp("50%") }} />
+          <ActivityIndicator style={{ marginTop: hp("30%") }} />
         ) : (
-          <View>
-            <View style={styles.header}>
-              <Ionicons
-                name="ios-arrow-round-back"
-                size={hp("5%")}
-                color="black"
-                onPress={() => navigation.goBack()}
-              />
-              <Text style={styles.title}>
-                {this.capitalizeLetter(name)}
-              </Text>
-            </View>
-            <Text>weight: {pkmnInfo.weight / 10} kg</Text>
-            <Text>height: {pkmnInfo.height / 10} meters</Text>
-            <Text>
-              Types:
-              {/* {console.log(pkmnInfo.types)} */}
-              {pkmnInfo.types.map(item => {
-                return <Text key={item.slot}>{item.type.name}</Text>;
-              })}
-            </Text>
-          </View>
+          <PokemonCard pokemon={pkmnInfo} />
         )}
       </SafeAreaView>
     );
@@ -90,5 +88,6 @@ const styles = StyleSheet.create({
   title: {
     paddingLeft: wp("3%"),
     fontSize: hp("5%")
-  }
+  },
+  image: { height: hp("20%"), width: hp("20%") }
 });

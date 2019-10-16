@@ -12,6 +12,7 @@ const PokedexStack = createStackNavigator(
     Pokemon: PokemonScreen
   },
   {
+    initialRouteName: "Pokedex",
     defaultNavigationOptions: {
       header: null
     }
