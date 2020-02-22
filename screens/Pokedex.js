@@ -22,8 +22,6 @@ const PokedexScreen = ({ navigation }) => {
 
     const { isLoading, pokedex } = useFetchPokedex()
 
-    console.log(isLoading, pokedex)
-
     return (
         <SafeAreaView>
             <View style={styles.header}>
@@ -64,8 +62,7 @@ const styles = StyleSheet.create({
     },
     flatList: {
         justifyContent: "space-between",
-        marginLeft: wp("3%"),
-        marginRight: wp("3%")
+        marginHorizontal: wp("3%"),
     }
 });
 
