@@ -11,13 +11,13 @@ const ButtonPokemon = ({ name, index, navigation }) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  //TODO aggiungere 0 prima del numero se più piccollo di 100
+  //TODO aggiungere 0 prima del numero se più piccolo di 100
   function renderNumber(index) {
     return `#${index}`;
   }
   return (
     <TouchableOpacity
-      style={{ ...styles.button, backgroundColor: "#a7aaad" }}
+      style={styles.button }
       onPress={() =>
         navigation.navigate("Pokemon", { index: index, name: name })
       }
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   button: {
     height: wp("30%"),
     width: wp("45%"),
+    backgroundColor: "#a7aaad",
     borderRadius: 20,
     paddingTop: hp("2%"),
     paddingLeft: hp("2%"),
