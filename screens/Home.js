@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, SafeAreaView, View, Text } from "react-native";
+import { StyleSheet, StatusBar, SafeAreaView, View, Text } from "react-native";
 
 import {
     widthPercentageToDP as wp,
@@ -10,7 +10,8 @@ import ButtonHome from "../components/home/ButtonHome";
 
 const HomeScreen = ({ navigation }) => {
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.screen}>
+            <StatusBar barStyle="dark-content"/>
             <Text style={styles.text}>React-Native Pokedex</Text>
             <View
                 style={{
@@ -31,13 +32,14 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
+    screen: {
+        flex: 1,
         margin: 5
     },
     text: {
         fontSize: hp("4%"),
         marginLeft: wp("3%"),
-        marginBottom: hp("7%")
+        marginVertical: hp("5%")
     }
 });
 
