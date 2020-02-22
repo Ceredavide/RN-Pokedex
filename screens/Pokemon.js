@@ -18,68 +18,46 @@ import { Ionicons } from "@expo/vector-icons";
 
 import PokemonCard from "../components/pokemon/PokemonCard";
 
-export default class PokemonScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: false
-        };
-    }
+import useFetchPokemon from "../hooks/useFetchPokemon"
 
-    componentDidMount = () => {
-        this.setState({ loading: true });
-        this.fetchData(this.props.navigation.getParam("index"));
-    };
+const PokemonScreen = ({ navigation }) => {
+    const name = navigation.getParam("name");
+    const index = navigation.getParam("index");
 
-    fetchData = async index => {
-        try {
-            await fetch(`https://pokeapi.co/api/v2/pokemon/${index + 1}`)
-                .then(res => res.json())
-                .then(data => this.setState({ pkmnInfo: data, loading: false }));
-        } catch (error) {
-            this.setState({ loading: false });
-            Alert.alert(error.toString());
-        }
-    };
+    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
 
-    capitalizeLetter = str => {
+    const { isLoading, pokemon } = useFetchPokemon(index + 1)
+
+    const capitalizeLetter = str => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
 
-    render() {
-        const { pkmnInfo, loading } = this.state;
-        const { navigation } = this.props;
+    console.log(pokemon)
 
-        const name = navigation.getParam("name");
-        const index = navigation.getParam("index");
-
-        return (
-            <SafeAreaView>
-                <View style={styles.header}>
-                    <Ionicons
-                        name="ios-arrow-round-back"
-                        size={hp("5%")}
-                        color="black"
-                        onPress={() => navigation.goBack()}
-                    />
-                    <Text style={styles.title}>{this.capitalizeLetter(name)}</Text>
-                </View>
-                <Image
-                    style={styles.image}
-                    source={{
-                        uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index +
-                            1}.png`
-                    }}
+    return (
+        <SafeAreaView>
+            <View style={styles.header}>
+                <Ionicons
+                    name="ios-arrow-round-back"
+                    size={hp("5%")}
+                    color="black"
+                    onPress={() => navigation.goBack()}
                 />
-                {loading ? (
-                    <ActivityIndicator style={{ marginTop: hp("30%") }} />
-                ) : (
-                        <PokemonCard pokemon={pkmnInfo} />
-                    )}
-            </SafeAreaView>
-        );
-    }
+                <Text style={styles.title}>{capitalizeLetter(name)}</Text>
+            </View>
+            <Image
+                style={styles.image}
+                source={{ uri: imageUrl }}
+            />
+            {isLoading ? (
+                <ActivityIndicator style={{ marginTop: hp("30%") }} />
+            ) : (
+                    <PokemonCard pokemon={pokemon} />
+                )}
+        </SafeAreaView>
+    );
 }
+
 
 const styles = StyleSheet.create({
     header: { padding: hp("2%") },
@@ -89,3 +67,5 @@ const styles = StyleSheet.create({
     },
     image: { height: hp("20%"), width: hp("20%") }
 });
+
+export default PokemonScreen
