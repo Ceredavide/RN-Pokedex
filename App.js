@@ -1,13 +1,22 @@
-import React from "react";
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
 
-import { StatusBar, View } from "react-native";
+import HomeScreen from "./screens/Home";
+import PokedexScreen from "./screens/Pokedex";
+import PokemonScreen from "./screens/Pokemon";
 
-// import HomeScreen from './screens/HomeScreen'
-// import PokedexScreen from './screens/PokedexScreen'
-import PokedexStack from "./navigation/PokedexStack";
+const App = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Pokedex: PokedexScreen,
+    Pokemon: PokemonScreen
+  },
+  {
+    initialRouteName: "Home",
+    defaultNavigationOptions: {
+      headerShown: false
+    }
+  }
+);
 
-const App = () => {
-  return <PokedexStack />;
-};
-
-export default App;
+export default createAppContainer(App);
