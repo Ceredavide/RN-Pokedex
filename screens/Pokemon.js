@@ -1,13 +1,13 @@
 import React from "react";
 import {
     StyleSheet,
-    SafeAreaView,
+    ScrollView,
     View,
     Image,
-    ActivityIndicator,
     Text,
-    Alert
 } from "react-native";
+
+import { SafeAreaView } from "react-navigation"
 
 import {
     heightPercentageToDP as hp,
@@ -19,53 +19,80 @@ import { Ionicons } from "@expo/vector-icons";
 import PokemonCard from "../components/pokemon/PokemonCard";
 
 import useFetchPokemon from "../hooks/useFetchPokemon"
+import capitalizeString from "../services/capitalizeString";
+
+import typeColors from "../constants/colors"
 
 const PokemonScreen = ({ navigation }) => {
-    const name = navigation.getParam("name");
     const index = navigation.getParam("index");
 
     const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
 
-    const { isLoading, pokemon } = useFetchPokemon(index + 1)
+    const pokemon = useFetchPokemon(index + 1)
 
-    const capitalizeLetter = str => {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    };
+    if (pokemon) {
 
-    console.log(pokemon)
+        const firstType = pokemon.types[0].type.name
 
-    return (
-        <SafeAreaView>
-            <View style={styles.header}>
-                <Ionicons
-                    name="ios-arrow-round-back"
-                    size={hp("5%")}
-                    color="black"
-                    onPress={() => navigation.goBack()}
-                />
-                <Text style={styles.title}>{capitalizeLetter(name)}</Text>
-            </View>
-            <Image
-                style={styles.image}
-                source={{ uri: imageUrl }}
-            />
-            {isLoading ? (
-                <ActivityIndicator style={{ marginTop: hp("30%") }} />
-            ) : (
+        const color = typeColors[firstType]
+
+        return (
+            <SafeAreaView style={{ ...styles.screen, backgroundColor: color }} forceInset={{ bottom: 'never' }}>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <View style={{ backgroundColor: color }}>
+                        <View style={styles.header}>
+                            <Ionicons
+                                name="ios-arrow-round-back"
+                                size={hp("5%")}
+                                color="white"
+                                onPress={() => navigation.goBack()}
+                            />
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                <Text style={styles.title}>{capitalizeString(pokemon.name)}</Text>
+                                <Text style={styles.number}>{`#${index + 1}`}</Text>
+                            </View>
+                        </View>
+                        <Image
+                            style={{ ...styles.image, backgroundColor: color }}
+                            source={{ uri: imageUrl }}
+                        />
+                    </View>
                     <PokemonCard pokemon={pokemon} />
-                )}
-        </SafeAreaView>
-    );
+                </ScrollView>
+            </SafeAreaView>
+        );
+    }
+    else {
+        return <Text>Loadinggg</Text>
+    }
 }
 
 
 const styles = StyleSheet.create({
-    header: { padding: hp("2%") },
+    screen: {
+        flex: 1,
+        backgroundColor: "red"
+    },
+    header: { padding: hp("1%") },
     title: {
         paddingLeft: wp("3%"),
-        fontSize: hp("5%")
+        fontSize: hp("5.5%"),
+        color: "white",
+        fontFamily: "Avenir-Book"
     },
-    image: { height: hp("20%"), width: hp("20%") }
+    number: {
+        marginRight: wp("3%"),
+        fontSize: hp("3.5%"),
+        fontWeight: "bold",
+        color: "white"
+    },
+    image: {
+        marginTop: -hp("1.5%"),
+        height: hp("30%"),
+        width: hp("30%"),
+        alignSelf: "center",
+        backgroundColor: "red",
+    }
 });
 
 export default PokemonScreen
