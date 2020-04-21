@@ -3,7 +3,7 @@ import axios from "axios"
 
 import handleError from "../services/handleError"
 
-const useFetchPokedex = () => {
+const useFetchPokedex = (start, end) => {
     const [isLoading, setIsLoading] = useState(false)
     const [pokedex, setPokedex] = useState([])
 
@@ -11,7 +11,7 @@ const useFetchPokedex = () => {
         const fetchPokedex = async () => {
             setIsLoading(true)
             try {
-                const response = await axios.get("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151")
+                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${start}&limit=${end}`)
                 setPokedex(response.data.results)
             } catch (error) {
                 handleError(error)
