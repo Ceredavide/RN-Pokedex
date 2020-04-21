@@ -3,6 +3,7 @@ import {
     StyleSheet,
     SafeAreaView,
     View,
+    Text,
     ActivityIndicator,
     FlatList,
 } from "react-native";
@@ -20,7 +21,15 @@ import useFetchPokedex from "../hooks/useFetchPokedex"
 
 const PokedexScreen = ({ navigation }) => {
 
-    const { isLoading, pokedex } = useFetchPokedex()
+    const { isLoading, pokedex } = useFetchPokedex(0, 20)
+
+    const renderItem = ({ item, index }) => (
+        <ButtonPokemon
+            name={item.name}
+            index={index}
+            navigation={navigation}
+        />
+    )
 
     return (
         <SafeAreaView>
@@ -31,6 +40,7 @@ const PokedexScreen = ({ navigation }) => {
                     color="black"
                     onPress={() => navigation.goBack()}
                 />
+                <Text style={styles.title}>Pokedex</Text>
             </View>
             {isLoading ? (
                 <ActivityIndicator style={{ marginBottom: hp("50%") }} />
@@ -39,13 +49,7 @@ const PokedexScreen = ({ navigation }) => {
                         data={pokedex}
                         numColumns={2}
                         columnWrapperStyle={styles.flatList}
-                        renderItem={({ item, index }) => (
-                            <ButtonPokemon
-                                name={item.name}
-                                index={index}
-                                navigation={navigation}
-                            />
-                        )}
+                        renderItem={renderItem}
                         keyExtractor={item => item.url}
                     />
                 )}
@@ -57,8 +61,9 @@ const PokedexScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     header: { padding: hp("2%") },
     title: {
-        paddingLeft: wp("3%"),
-        fontSize: hp("5%")
+        marginTop: hp("1%"),
+        fontSize: hp("4%"),
+        fontFamily: "Avenir-Heavy"
     },
     flatList: {
         justifyContent: "space-between",
