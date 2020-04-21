@@ -5,13 +5,13 @@ import handleError from "../services/handleError"
 
 const useFetchPokemon = (index) => {
     const [isLoading, setIsloading] = useState(false)
-    const [pokemon, setPokemon] = useState({})
+    const [pokemon, setPokemon] = useState(null)
 
     useEffect(() => {
         const fetchPokemon = async () => {
             setIsloading(true)
             try {
-                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${index + 1}`)
+                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${index}`)
                 setPokemon(response.data)
             } catch (error) {
                 handleError(error)
@@ -22,7 +22,7 @@ const useFetchPokemon = (index) => {
         fetchPokemon()
     }, [])
 
-    return { isLoading, pokemon }
+    return pokemon
 }
 
 export default useFetchPokemon
