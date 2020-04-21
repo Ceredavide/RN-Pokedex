@@ -6,10 +6,11 @@ import {
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 
+import capitalizeString from "../../services/capitalizeString"
+
 const ButtonPokemon = ({ name, index, navigation }) => {
-  function capitalizeLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+
+  const imgUri = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
 
   //TODO aggiungere 0 prima del numero se più piccolo di 100
   function renderNumber(index) {
@@ -17,20 +18,17 @@ const ButtonPokemon = ({ name, index, navigation }) => {
   }
   return (
     <TouchableOpacity
-      style={styles.button }
+      style={styles.button}
       onPress={() =>
         navigation.navigate("Pokemon", { index: index, name: name })
       }
     >
-      <Text style={styles.text}>{capitalizeLetter(name)}</Text>
+      <Text style={styles.name}>{capitalizeString(name)}</Text>
       <View style={{ flexDirection: "row" }}>
         <Text style={styles.number}>{renderNumber(index + 1)}</Text>
         <Image
           style={styles.image}
-          source={{
-            uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index +
-              1}.png`
-          }}
+          source={{ uri: imgUri }}
         />
       </View>
     </TouchableOpacity>
@@ -47,15 +45,21 @@ const styles = StyleSheet.create({
     paddingLeft: hp("2%"),
     marginBottom: hp("3%")
   },
-  text: {
+  name: {
     color: "white",
-    fontSize: hp("3%")
+    fontSize: hp("3%"),
+    fontFamily: "Avenir-Medium"
   },
   number: {
     color: "white",
-    marginTop: hp("1%")
+    marginTop: hp("1%"),
+    fontFamily: "Avenir-Heavy"
   },
-  image: { height: hp("8%"), width: hp("8%"), marginLeft: wp("15%") }
+  image: { 
+    height: hp("8%"),
+   width: hp("8%"),
+    marginLeft: wp("15%")
+   }
 });
 
 export default ButtonPokemon;
