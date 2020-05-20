@@ -35,6 +35,7 @@ const loadResourcesAsync = async () => {
             require("../assets/icons/types/rock.svg"),
             require("../assets/icons/types/steel.svg"),
             require("../assets/icons/types/water.svg"),
+            require("../assets/images/loadingPokemon.gif")
         ]),
         Font.loadAsync({
             "Avenir-Book": require("../assets/fonts/Avenir-Book.otf"),

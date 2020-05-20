@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     ScrollView,
+    StatusBar,
     View,
     Image,
     Text,
@@ -17,18 +18,22 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import PokemonCard from "../components/pokemon/PokemonCard";
+import Loading from "../components/pokemon/Loading"
 
 import useFetchPokemon from "../hooks/useFetchPokemon"
+import getImageUrl from "../services/getImageUrl"
 import capitalizeString from "../services/capitalizeString";
 
 import typeColors from "../constants/colors"
 
 const PokemonScreen = ({ navigation }) => {
+    const [imageLoaded, setImageLoaded] = useState(false)
     const index = navigation.getParam("index");
+    const url = navigation.getParam("url")
 
-    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
+    const imageUrl = getImageUrl(url)
 
-    const pokemon = useFetchPokemon(index + 1)
+    const pokemon = useFetchPokemon(url)
 
     if (pokemon) {
 
@@ -38,6 +43,7 @@ const PokemonScreen = ({ navigation }) => {
 
         return (
             <SafeAreaView style={{ ...styles.screen, backgroundColor: color }} forceInset={{ bottom: 'never' }}>
+                <StatusBar barStyle="light-content" />
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ backgroundColor: color }}>
                         <View style={styles.header}>
@@ -57,13 +63,13 @@ const PokemonScreen = ({ navigation }) => {
                             source={{ uri: imageUrl }}
                         />
                     </View>
-                    <PokemonCard pokemon={pokemon} />
+                    <PokemonCard pokemon={pokemon} color={color} />
                 </ScrollView>
             </SafeAreaView>
         );
     }
     else {
-        return <Text>Loadinggg</Text>
+        return <Loading />
     }
 }
 
