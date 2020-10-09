@@ -43,13 +43,13 @@ const Row = styled.View`
 `;
 
 const Button = styled.TouchableOpacity`
-  height: 90%;
-  width: 47%;
+  height: ${hp("14%")}px;
+  width: ${wp("45%")}px;
   background-color: #a7aaad;
   border-radius: 20px;
-  padding-top: 2%;
-  padding-left: 2%;
-  margin-bottom: 3%
+  padding-top: ${hp("2%")}px;
+  padding-left: ${hp("2%")}px;
+  margin-bottom: ${hp("3%")}px
 `;
 
 const Name = styled.Text`
@@ -67,7 +67,7 @@ const Number = styled.Text`
 const Image = styled.Image`
   height: ${hp("8%")}px;
   width:${hp("8%")}px;
-  margin-left: 30px
+  margin-left:${wp("15%")}px;  
 `;
 
 export default ButtonPokemon;
