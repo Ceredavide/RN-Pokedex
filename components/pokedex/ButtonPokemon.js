@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
+
+import styled from 'styled-components/native'
 
 import {
   widthPercentageToDP as wp,
@@ -7,59 +8,66 @@ import {
 } from "react-native-responsive-screen";
 
 import capitalizeString from "../../services/capitalizeString"
+import getImageUrl from "../../services/getImageUrl"
 
-const ButtonPokemon = ({ name, index, navigation }) => {
+const ButtonPokemon = ({ name, index, url, navigation }) => {
 
-  const imgUri = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
+  const imgUri = getImageUrl(url)
 
   //TODO aggiungere 0 prima del numero se più piccolo di 100
   function renderNumber(index) {
     return `#${index}`;
   }
+
+  function goToPokemon() {
+    navigation.navigate("Pokemon", { index: index, name: name, url: url })
+  }
+
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={() =>
-        navigation.navigate("Pokemon", { index: index, name: name })
-      }
-    >
-      <Text style={styles.name}>{capitalizeString(name)}</Text>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={styles.number}>{renderNumber(index + 1)}</Text>
+    <Button onPress={goToPokemon}>
+      <Name>{capitalizeString(name)}</Name>
+      <Row>
+        <Number>{renderNumber(index + 1)}</Number>
         <Image
-          style={styles.image}
+          resizeMethod="scale"
+          resizeMode="contain"
           source={{ uri: imgUri }}
         />
-      </View>
-    </TouchableOpacity>
+      </Row>
+    </Button>
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    height: wp("30%"),
-    width: wp("45%"),
-    backgroundColor: "#a7aaad",
-    borderRadius: 20,
-    paddingTop: hp("2%"),
-    paddingLeft: hp("2%"),
-    marginBottom: hp("3%")
-  },
-  name: {
-    color: "white",
-    fontSize: hp("3%"),
-    fontFamily: "Avenir-Medium"
-  },
-  number: {
-    color: "white",
-    marginTop: hp("1%"),
-    fontFamily: "Avenir-Heavy"
-  },
-  image: { 
-    height: hp("8%"),
-   width: hp("8%"),
-    marginLeft: wp("15%")
-   }
-});
+const Row = styled.View`
+  flex-direction: row
+`;
+
+const Button = styled.TouchableOpacity`
+  height: 90%;
+  width: 47%;
+  background-color: #a7aaad;
+  border-radius: 20px;
+  padding-top: 2%;
+  padding-left: 2%;
+  margin-bottom: 3%
+`;
+
+const Name = styled.Text`
+  color: #FFF;
+  font-size: ${hp("3%")}px;
+  font-family: "Avenir-Medium"
+`;
+
+const Number = styled.Text`
+  color: #FFF;
+  margin-top: ${hp("1%")}px;
+  font-family: "Avenir-Heavy"
+`;
+
+const Image = styled.Image`
+  height: ${hp("8%")}px;
+  width:${hp("8%")}px;
+  margin-left: 30px
+`;
 
 export default ButtonPokemon;
