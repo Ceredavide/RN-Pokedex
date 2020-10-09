@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 4934,
-  "expoServerNgrokUrl": "https://rt-f47.ceddarboy.rnpokedex.exp.direct",
-  "packagerNgrokUrl": "https://packager.rt-f47.ceddarboy.rnpokedex.exp.direct",
-  "ngrokPid": 4943,
+  "packagerPid": 46646,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
