@@ -1,12 +1,5 @@
-import React, { useState } from "react";
-import {
-    StyleSheet,
-    ScrollView,
-    StatusBar,
-    View,
-    Image,
-    Text,
-} from "react-native";
+import React from "react";
+import { ScrollView, StatusBar } from "react-native";
 
 import { SafeAreaView } from "react-navigation"
 
@@ -15,8 +8,11 @@ import {
     widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
+import styled from "styled-components/native"
+
 import { Ionicons } from "@expo/vector-icons";
 
+import TransitionView from "../components/shared/TransitionView"
 import PokemonCard from "../components/pokemon/PokemonCard";
 import Loading from "../components/pokemon/Loading"
 
@@ -27,7 +23,7 @@ import capitalizeString from "../services/capitalizeString";
 import typeColors from "../constants/colors"
 
 const PokemonScreen = ({ navigation }) => {
-    const [imageLoaded, setImageLoaded] = useState(false)
+    
     const index = navigation.getParam("index");
     const url = navigation.getParam("url")
 
@@ -42,30 +38,27 @@ const PokemonScreen = ({ navigation }) => {
         const color = typeColors[firstType]
 
         return (
-            <SafeAreaView style={{ ...styles.screen, backgroundColor: color }} forceInset={{ bottom: 'never' }}>
+            <Screen color={color} forceInset={{ bottom: 'never' }}>
                 <StatusBar barStyle="light-content" />
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={{ backgroundColor: color }}>
-                        <View style={styles.header}>
-                            <Ionicons
-                                name="ios-arrow-round-back"
-                                size={hp("5%")}
-                                color="white"
-                                onPress={() => navigation.goBack()}
-                            />
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                                <Text style={styles.title}>{capitalizeString(pokemon.name)}</Text>
-                                <Text style={styles.number}>{`#${index + 1}`}</Text>
-                            </View>
-                        </View>
-                        <Image
-                            style={{ ...styles.image, backgroundColor: color }}
-                            source={{ uri: imageUrl }}
+                    <Header>
+                        <Ionicons
+                            name="ios-arrow-round-back"
+                            size={hp("5%")}
+                            color="white"
+                            onPress={() => navigation.goBack()}
                         />
-                    </View>
+                        <Row>
+                            <Title>{capitalizeString(pokemon.name)}</Title>
+                            <Number>{`#${index + 1}`}</Number>
+                        </Row>
+                    </Header>
+                    <TransitionView>
+                        <Image source={{ uri: imageUrl }} />
+                    </TransitionView>
                     <PokemonCard pokemon={pokemon} color={color} />
                 </ScrollView>
-            </SafeAreaView>
+            </Screen>
         );
     }
     else {
@@ -73,32 +66,40 @@ const PokemonScreen = ({ navigation }) => {
     }
 }
 
+const Screen = styled(SafeAreaView)`
+    flex: 1;
+    background-color: ${props => props.color}
+`;
 
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        backgroundColor: "red"
-    },
-    header: { padding: hp("1%") },
-    title: {
-        paddingLeft: wp("3%"),
-        fontSize: hp("5.5%"),
-        color: "white",
-        fontFamily: "Avenir-Book"
-    },
-    number: {
-        marginRight: wp("3%"),
-        fontSize: hp("3.5%"),
-        fontWeight: "bold",
-        color: "white"
-    },
-    image: {
-        marginTop: -hp("1.5%"),
-        height: hp("30%"),
-        width: hp("30%"),
-        alignSelf: "center",
-        backgroundColor: "red",
-    }
-});
+const Header = styled.View`
+    padding: ${hp("1%")}px
+`;
+
+const Row = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center
+`;
+
+const Title = styled.Text`
+    padding-left: ${wp("3%")}px;
+    font-size: ${hp("5.5%")}px;
+    font-family: "Avenir-Book";
+    color: #FFF
+`;
+
+const Number = styled.Text`
+    margin-right: ${wp("3%")}px;
+    font-size: ${hp("3.5%")}px;
+    font-weight: bold;
+    color: #FFF
+`;
+
+const Image = styled.Image`
+    height: ${hp("30%")}px;
+    width: ${hp("30%")}px;
+    margin-top: -${hp("1.5%")}px;
+    align-self: center
+`;
 
 export default PokemonScreen
