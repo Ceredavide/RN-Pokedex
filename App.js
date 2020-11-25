@@ -14,7 +14,7 @@ const App = () => {
   return isLoading ? <LoadingScreen setIsLoading={setIsLoading} /> : <Stack />
 }
 
-const StackNavigator = createStackNavigator(
+const Stack = createAppContainer(createStackNavigator(
   {
     Home: HomeScreen,
     Pokedex: PokedexScreen,
@@ -26,8 +26,6 @@ const StackNavigator = createStackNavigator(
       headerShown: false
     }
   }
-);
-
-const Stack = createAppContainer(StackNavigator)
+));
 
 export default App
