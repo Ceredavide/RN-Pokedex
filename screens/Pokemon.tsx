@@ -10,7 +10,7 @@ import {
 
 import styled from "styled-components/native"
 
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons as Icon } from "@expo/vector-icons";
 
 import TransitionView from "../components/shared/TransitionView"
 import PokemonCard from "../components/pokemon/PokemonCard";
@@ -22,7 +22,11 @@ import capitalizeString from "../services/capitalizeString";
 
 import typeColors from "../constants/colors"
 
-const PokemonScreen = ({ navigation }) => {
+interface Props{
+    navigation: any
+}
+
+const PokemonScreen: React.FC<Props> = ({ navigation }) => {
     
     const index = navigation.getParam("index");
     const url = navigation.getParam("url")
@@ -42,8 +46,8 @@ const PokemonScreen = ({ navigation }) => {
                 <StatusBar barStyle="light-content" />
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <Header>
-                        <Ionicons
-                            name="ios-arrow-round-back"
+                        <Icon
+                            name="arrow-left"
                             size={hp("5%")}
                             color="white"
                             onPress={() => navigation.goBack()}

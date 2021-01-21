@@ -11,13 +11,20 @@ import {
     widthPercentageToDP as wp
 } from "react-native-responsive-screen";
 
-const NavButton = ({ name, color, content, setContent }) => {
+interface Props{
+    name: string;
+    color: string;
+    content: string;
+    setContent: any;
+}
+
+const NavButton : React.FC<Props> = ({ name, color, content, setContent }) => {
 
     const active = name === content
 
     const styles = StyleSheet.create({
         button: {
-            backgroundColor: active ? color : null,
+            backgroundColor: active ? color : "",
             alignItems: "center",
             justifyContent: "center",
             height: hp("4%"),

@@ -1,26 +1,32 @@
 import React from "react";
 
-import styled from 'styled-components/native'
+import styled from "styled-components/native";
 
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-import capitalizeString from "../../services/capitalizeString"
-import getImageUrl from "../../services/getImageUrl"
+import capitalizeString from "../../services/capitalizeString";
+import getImageUrl from "../../services/getImageUrl";
 
-const ButtonPokemon = ({ name, index, url, navigation }) => {
+interface Props {
+  name: string;
+  index: number;
+  url: string;
+  navigation: any;
+}
 
-  const imgUri = getImageUrl(url)
+const ButtonPokemon: React.FC<Props> = ({ name, index, url, navigation }) => {
+  const imgUri = getImageUrl(url);
 
   //TODO aggiungere 0 prima del numero se più piccolo di 100
-  function renderNumber(index) {
+  function renderNumber(index: number) {
     return `#${index}`;
   }
 
   function goToPokemon() {
-    navigation.navigate("Pokemon", { index: index, name: name, url: url })
+    navigation.navigate("Pokemon", { index: index, name: name, url: url });
   }
 
   return (
@@ -39,7 +45,7 @@ const ButtonPokemon = ({ name, index, url, navigation }) => {
 };
 
 const Row = styled.View`
-  flex-direction: row
+  flex-direction: row;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -49,25 +55,25 @@ const Button = styled.TouchableOpacity`
   border-radius: 20px;
   padding-top: ${hp("2%")}px;
   padding-left: ${hp("2%")}px;
-  margin-bottom: ${hp("3%")}px
+  margin-bottom: ${hp("3%")}px;
 `;
 
 const Name = styled.Text`
-  color: #FFF;
+  color: #fff;
   font-size: ${hp("3%")}px;
-  font-family: "Avenir-Medium"
+  font-family: "Avenir-Medium";
 `;
 
 const Number = styled.Text`
-  color: #FFF;
+  color: #fff;
   margin-top: ${hp("1%")}px;
-  font-family: "Avenir-Heavy"
+  font-family: "Avenir-Heavy";
 `;
 
 const Image = styled.Image`
   height: ${hp("8%")}px;
-  width:${hp("8%")}px;
-  margin-left:${wp("15%")}px;  
+  width: ${hp("8%")}px;
+  margin-left: ${wp("15%")}px;
 `;
 
 export default ButtonPokemon;

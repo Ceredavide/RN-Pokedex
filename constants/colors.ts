@@ -19,4 +19,13 @@ const typeColors = {
   "water": "#559EDF"
 }
 
+export const colorsArr = [
+  "#0C69C8",
+  "#EDD53E",
+  "#5FBC51",
+  "#70CCBD",
+  "#F66F71",
+  "#C5B489",
+]
+
 export default typeColors

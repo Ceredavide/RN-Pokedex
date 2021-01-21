@@ -4,21 +4,25 @@ import { StyleSheet, View } from "react-native";
 
 import {
   heightPercentageToDP as hp,
-  widthPercentageToDP as wp
+  widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
-import NavBar from "./NavBar"
-import Types from "./Types"
+import NavBar from "./NavBar";
+import Types from "./Types";
 
-const PokemonCard = ({ pokemon, color }) => {
+interface Props {
+  pokemon: any,
+  color: string
+}
+
+const PokemonCard: React.FC<Props> = ({ pokemon, color }) => {
   return (
     <View style={styles.card}>
       <Types types={pokemon.types} />
-      <NavBar pokemon={pokemon} color={color}/>
+      <NavBar pokemon={pokemon} color={color} />
     </View>
   );
-}
-
+};
 
 const styles = StyleSheet.create({
   card: {
@@ -29,8 +33,8 @@ const styles = StyleSheet.create({
     width: wp("100%"),
     minHeight: hp("55%"),
     alignSelf: "center",
-    backgroundColor: "white"
-  }
+    backgroundColor: "white",
+  },
 });
 
-export default PokemonCard
+export default PokemonCard;

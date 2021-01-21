@@ -1,6 +1,6 @@
 import { Alert } from "react-native"
 
-export default handleError = error => {
+const handleError = (error: any) => {
     if (error.response) {
         /*
          * The request was made and the server responded with a
@@ -26,3 +26,5 @@ export default handleError = error => {
     }
     console.log(error);
 }
+
+export default handleError;
