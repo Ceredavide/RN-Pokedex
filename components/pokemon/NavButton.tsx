@@ -24,7 +24,7 @@ const NavButton : React.FC<Props> = ({ name, color, content, setContent }) => {
 
     const styles = StyleSheet.create({
         button: {
-            backgroundColor: active ? color : "",
+            backgroundColor: active ? color : "transparent",
             alignItems: "center",
             justifyContent: "center",
             height: hp("4%"),
