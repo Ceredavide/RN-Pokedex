@@ -51,7 +51,7 @@ const Row = styled.View`
 const Button = styled.TouchableOpacity`
   height: ${hp("14%")}px;
   width: ${wp("45%")}px;
-  background-color: #a7aaad;
+  background-color:  #d6dbdf;
   border-radius: 20px;
   padding-top: ${hp("2%")}px;
   padding-left: ${hp("2%")}px;
