@@ -4,7 +4,7 @@ import axios from "axios";
 import handleError from "../services/handleError";
 
 const useFetchPokedex = (start: number, end: number) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pokedex, setPokedex] = useState([]);
 
   useEffect(() => {

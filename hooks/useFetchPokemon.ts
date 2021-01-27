@@ -4,9 +4,9 @@ import axios from "axios";
 import handleError from "../services/handleError";
 
 const useFetchPokemon = (url: string) => {
-  const [isLoading, setIsloading] = useState(true);
-  const [error, setError] = useState(null);
-  const [pokemon, setPokemon] = useState({});
+  const [isLoading, setIsloading] = useState<boolean>(true);
+  const [error, setError] = useState<Object | null>(null);
+  const [pokemon, setPokemon] = useState<Object>({});
 
   useEffect(() => {
     const fetchPokemon = async () => {
