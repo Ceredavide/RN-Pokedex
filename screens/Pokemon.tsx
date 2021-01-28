@@ -1,5 +1,7 @@
 import React from "react";
-import { ScrollView, StatusBar, SafeAreaView } from "react-native";
+import { ScrollView, StatusBar } from "react-native";
+
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
   heightPercentageToDP as hp,
@@ -7,6 +9,8 @@ import {
 } from "react-native-responsive-screen";
 
 import styled from "styled-components/native";
+
+import { LinearGradient } from "expo-linear-gradient";
 
 import Error from "./Error";
 
@@ -35,13 +39,13 @@ const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
   if (isLoading) return <Loading />;
   else if (error) return <Error />;
   else {
-    
-    const firstType = pokemon.types[0].type.name;
+    const firstType: string = pokemon.types[0].type.name;
 
-    const color = typeColors[firstType];
+    const color: string = typeColors[firstType];
 
     return (
       <Screen color={color} forceInset={{ bottom: "never" }}>
+        {renderGradient(pokemon.types)}
         <StatusBar barStyle="light-content" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Header index={index} pokemon={pokemon} navigation={navigation} />
@@ -51,6 +55,26 @@ const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
           <PokemonCard pokemon={pokemon} color={color} />
         </ScrollView>
       </Screen>
+    );
+  }
+};
+
+const renderGradient: React.FC<any[]> = (types) => {
+  if (types.length === 1) return <></>;
+  else {
+    return (
+      <LinearGradient
+        start={{ x: 0.4, y: 0.11 }}
+        end={{ x: 0.1, y: 0.4 }}
+        colors={types.map((item) => typeColors[item.type.name])}
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 0,
+          height: hp("100%"),
+        }}
+      />
     );
   }
 };
