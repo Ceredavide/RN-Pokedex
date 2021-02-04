@@ -6,8 +6,8 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
-import typeColors from "../../constants/colors";
-import typeIcons from "../../constants/icons";
+import typeColors from "../../../constants/colors";
+import typeIcons from "./../../../constants/icons";
 
 interface Props {
   types: any[];
@@ -16,18 +16,20 @@ interface Props {
 const Types: React.FC<Props> = ({ types }) => {
   return (
     <View style={styles.container}>
-      {types.map((item) => {
-        const color = typeColors[item.type.name];
-
-        return <Type key={item.slot} name={item.type.name} color={color} />;
-      })}
+      {types.map((item) => 
+        <Type
+          key={item.slot}
+          name={item.type.name}
+          color={typeColors[item.type.name]}
+        />
+      )}
     </View>
   );
 };
 
-interface TypeProps{
-    name: string;
-    color: string;
+interface TypeProps {
+  name: string;
+  color: string;
 }
 
 const Type: React.FC<TypeProps> = ({ name, color }) => {
@@ -41,7 +43,9 @@ const Type: React.FC<TypeProps> = ({ name, color }) => {
 
 const styles = StyleSheet.create({
   container: {
+    width: wp("70%"),
     alignSelf: "center",
+    justifyContent: "space-evenly",
     padding: hp("1%"),
     flexDirection: "row",
   },

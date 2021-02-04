@@ -7,8 +7,8 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
-import NavBar from "./NavBar";
-import Types from "./Types";
+import NavBar from "./card/NavBar";
+import Types from "./card/Types";
 
 interface Props {
   pokemon: any,
