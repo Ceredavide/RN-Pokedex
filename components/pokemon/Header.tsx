@@ -24,7 +24,7 @@ const Header: React.FC<Props> = ({ index, pokemon, navigation }) => {
         name="keyboard-arrow-left"
         size={hp("5%")}
         color="white"
-        onPress={() => navigation.goBack()}
+        onPress={navigation.goBack}
       />
       <Row>
         <Title>{capitalizeString(pokemon.name)}</Title>
@@ -52,8 +52,8 @@ const Title = styled.Text`
 `;
 
 const Number = styled.Text`
-  margin-right: ${wp("3%")}px;
-  font-size: ${hp("3.5%")}px;
+  margin-right: ${wp("5%")}px;
+  font-size: ${hp("3.7%")}px;
   font-weight: bold;
   color: #fff;
 `;
