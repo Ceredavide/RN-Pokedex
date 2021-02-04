@@ -17,8 +17,8 @@ const Header: React.FC<Props> = ({ navigation, title }) => {
       <Icon
         name="arrow-left"
         size={hp("5%")}
-        color="black"
-        onPress={navigation.goBack}
+        color="#FFF"
+        onPress={() => navigation.goBack()}
       />
       <Title>{title}</Title>
     </Container>
