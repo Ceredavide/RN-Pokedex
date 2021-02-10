@@ -18,7 +18,8 @@ interface Props {
 }
 
 const PokedexScreen: React.FC<Props> = ({ navigation }) => {
-  let pokedex = pokedexList["gen4"];
+  
+  let pokedex = pokedexList["gen1"];
 
   interface Item {
     item: any;
