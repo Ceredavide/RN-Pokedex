@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import PokemonInterface from "../models/Pokemon";
+
 import handleError from "../services/handleError";
 
 const useFetchPokemon = (url: string) => {
   const [isLoading, setIsloading] = useState<boolean>(true);
   const [error, setError] = useState<Object | null>(null);
-  const [pokemon, setPokemon] = useState<Object>({});
+  const [pokemon, setPokemon] = useState<PokemonInterface>();
 
   useEffect(() => {
     const fetchPokemon = async () => {
       setIsloading(true);
       try {
         const response1 = await axios.get(url);
-
+        console.log(response1.data.varieties[0].pokemon.url);
         const response2 = await axios.get(
           response1.data.varieties[0].pokemon.url
         );
