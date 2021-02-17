@@ -9,8 +9,10 @@ import {
 import typeColors from "../../../constants/colors";
 import typeIcons from "../../../constants/icons";
 
+import { Type as TypeModel } from "../../../models/Pokemon";
+
 interface Props {
-  types: any[];
+  types: TypeModel[];
 }
 
 const Types: React.FC<Props> = ({ types }) => {

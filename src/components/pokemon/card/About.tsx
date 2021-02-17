@@ -8,8 +8,10 @@ import {
 
 import styled from "styled-components/native";
 
+import Pokemon, { Ability } from "../../../models/Pokemon";
+
 interface Props {
-  pokemon: any;
+  pokemon: Pokemon;
 }
 
 const About: React.FC<Props> = ({ pokemon }) => {
@@ -21,7 +23,7 @@ const About: React.FC<Props> = ({ pokemon }) => {
       <View style={{ ...styles.containerText, flexDirection: "column" }}>
         <Name>Abilities:</Name>
         <View style={{ flexDirection: "row" }}>
-          {pokemon.abilities.map((item: any, index: number) => {
+          {pokemon.abilities.map((item: Ability, index: number) => {
             return <Value key={index}>{item.ability.name} </Value>;
           })}
         </View>

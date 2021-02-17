@@ -1,8 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 
+import { Move } from "../../../models/Pokemon";
+
 interface Props {
-  moves: any[];
+  moves: Move[];
 }
 
 const Moves: React.FC<Props> = ({ moves }) => {

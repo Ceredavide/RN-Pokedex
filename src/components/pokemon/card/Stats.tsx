@@ -6,14 +6,16 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
+import { Stat as StatModel } from "../../../models/Pokemon";
+
 interface Props {
-  pokemon: any;
+  stats: StatModel[];
 }
 
-const Stats: React.FC<Props> = ({ pokemon }) => {
+const Stats: React.FC<Props> = ({ stats }) => {
   return (
     <View style={{ flex: 1, width: wp("100 %"), flexDirection: "row" }}>
-      {pokemon.stats.map((item: Object, index: number) => (
+      {stats.map((item: StatModel, index: number) => (
         <Stat key={index} item={item} />
       ))}
     </View>
@@ -21,7 +23,7 @@ const Stats: React.FC<Props> = ({ pokemon }) => {
 };
 
 interface StatProps{
-    item: any
+    item: StatModel
 }
 
 const Stat: React.FC<StatProps> = ({ item }) => {
