@@ -7,7 +7,7 @@ import {
 } from "react-native-responsive-screen";
 
 import typeColors from "../../../constants/colors";
-import typeIcons from "./../../../constants/icons";
+import typeIcons from "../../../constants/icons";
 
 interface Props {
   types: any[];

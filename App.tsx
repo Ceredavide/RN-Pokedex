@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import AppLoading from "expo-app-loading";
 
-import Stack from "./navigation/index"
+import Stack from "./src/navigation/index"
 
-import loadResourcesAsync from "./services/loadResourcesAsync";
+import loadResourcesAsync from "./src/services/loadResourcesAsync";
 
 const App: React.FC = () => {
   
