@@ -12,7 +12,7 @@ const Loading = () => {
             <StatusBar hidden={true} />
             <Image 
             style={styles.image}
-            source={require("../../assets/images/loadingPokemon.gif")}
+            source={require("../../../assets/images/loadingPokemon.gif")}
              />
         </View>
     )
