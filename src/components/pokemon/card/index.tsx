@@ -6,12 +6,13 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
+import Pokemon from "../../../models/Pokemon";
 
-import NavBar from "./card/NavBar";
-import Types from "./card/Types";
+import NavBar from "./NavBar";
+import Types from "./Types";
 
 interface Props {
-  pokemon: any,
+  pokemon: Pokemon,
   color: string
 }
 
