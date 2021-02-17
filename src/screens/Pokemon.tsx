@@ -16,7 +16,7 @@ import Error from "./Error";
 
 import TransitionView from "../components/shared/TransitionView";
 import Header from "../components/pokemon/Header";
-import PokemonCard from "../components/pokemon/Card";
+import PokemonCard from "../components/pokemon/card/";
 import Loading from "../components/pokemon/Loading";
 
 import useFetchPokemon from "../hooks/useFetchPokemon";
@@ -39,13 +39,25 @@ const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
   if (isLoading) return <Loading />;
   else if (error) return <Error />;
   else {
-    const firstType: string = pokemon.types[0].type.name;
+    const firstType: string = pokemon!.types[0].type.name;
 
     const color: string = typeColors[firstType];
 
     return (
       <Screen color={color} forceInset={{ bottom: "never" }}>
-        {renderGradient(pokemon.types)}
+        {pokemon!.types.length === 1 ? null: 
+          <LinearGradient
+          start={{ x: 0.4, y: 0.11 }}
+          end={{ x: 0.1, y: 0.4 }}
+          colors={pokemon!.types.map((item) => typeColors[item.type.name])}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: hp("100%"),
+          }}
+        />}
         <StatusBar barStyle="light-content" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Header index={index} pokemon={pokemon} navigation={navigation} />
@@ -59,29 +71,9 @@ const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
   }
 };
 
-const renderGradient: React.FC<any[]> = (types) => {
-  if (types.length === 1) return <></>;
-  else {
-    return (
-      <LinearGradient
-        start={{ x: 0.4, y: 0.11 }}
-        end={{ x: 0.1, y: 0.4 }}
-        colors={types.map((item) => typeColors[item.type.name])}
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          height: hp("100%"),
-        }}
-      />
-    );
-  }
-};
-
 const Screen = styled(SafeAreaView)`
   flex: 1;
-  background-color: ${(props: any) => props.color};
+  background-color: ${(props: { color: string, forceInset: any }) => props.color};
 `;
 
 const Image = styled.Image`
