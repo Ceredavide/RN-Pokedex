@@ -15,7 +15,6 @@ const useFetchPokemon = (url: string) => {
       setIsloading(true);
       try {
         const response1 = await axios.get(url);
-        console.log(response1.data.varieties[0].pokemon.url);
         const response2 = await axios.get(
           response1.data.varieties[0].pokemon.url
         );
