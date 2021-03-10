@@ -44,7 +44,7 @@ const NavBar = ({ pokemon, color }) => {
 
 const styles = StyleSheet.create({
     navButtons: {
-        marginTop: hp("2%"),
+        marginVertical: hp("2%"),
         alignSelf: "center",
         flexDirection: "row",
         justifyContent: "space-around",
