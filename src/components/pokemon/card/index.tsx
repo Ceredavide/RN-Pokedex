@@ -12,7 +12,7 @@ import NavBar from "./NavBar";
 import Types from "./Types";
 
 interface Props {
-  pokemon: Pokemon,
+  pokemon: Pokemon | null,
   color: string
 }
 

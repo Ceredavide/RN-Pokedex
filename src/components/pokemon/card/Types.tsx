@@ -12,13 +12,13 @@ import typeIcons from "../../../constants/icons";
 import { Type as TypeModel } from "../../../models/Pokemon";
 
 interface Props {
-  types: TypeModel[];
+  types: TypeModel[]| null;
 }
 
 const Types: React.FC<Props> = ({ types }) => {
   return (
     <View style={styles.container}>
-      {types.map((item) => 
+      {types?.map((item) => 
         <Type
           key={item.slot}
           name={item.type.name}
