@@ -18,7 +18,6 @@ interface Props {
 }
 
 const PokedexScreen: React.FC<Props> = ({ navigation }) => {
-  
   let pokedex = pokedexList["gen1"];
 
   interface Item {
@@ -38,15 +37,15 @@ const PokedexScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <SafeAreaView>
       <LinearGradient
-        start={[0.1, 0.1]}
-        colors={["#F0CB35", "#F66F71"]}
+        start={[1.1, 0.2]}
+        end={[0.5, 0.5]}
+        colors={["#00B2CA", "#1D4E89"]}
         style={styles.gradient}
       />
       <Header navigation={navigation} title="Pokedex" />
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={pokedex.pokemon_entries}
-        numColumns={2}
-        columnWrapperStyle={styles.flatList}
         renderItem={renderItem}
         keyExtractor={(item) => item.entry_number}
       />
@@ -55,10 +54,6 @@ const PokedexScreen: React.FC<Props> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  flatList: {
-    justifyContent: "space-between",
-    marginHorizontal: wp("3%"),
-  },
   gradient: {
     position: "absolute",
     left: 0,

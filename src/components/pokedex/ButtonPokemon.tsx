@@ -20,9 +20,15 @@ interface Props {
 const ButtonPokemon: React.FC<Props> = ({ name, index, url, navigation }) => {
   const imgUri = getImageUrl(url);
 
-  //TODO aggiungere 0 prima del numero se più piccolo di 100
   function renderNumber(index: number) {
-    return `#${index}`;
+    if (index < 100) {
+      if (index < 10) {
+        return `#00${index}`;
+      }
+      return `#0${index}`;
+    } else {
+      return `#${index}`;
+    }
   }
 
   function goToPokemon() {
@@ -31,9 +37,11 @@ const ButtonPokemon: React.FC<Props> = ({ name, index, url, navigation }) => {
 
   return (
     <Button onPress={goToPokemon}>
-      <Name>{capitalizeString(name)}</Name>
       <Row>
-        <Number>{renderNumber(index + 1)}</Number>
+        <Container>
+          <Name>{capitalizeString(name)}</Name>
+          <Number>{renderNumber(index + 1)}</Number>
+        </Container>
         <Image
           resizeMethod="scale"
           resizeMode="contain"
@@ -46,34 +54,39 @@ const ButtonPokemon: React.FC<Props> = ({ name, index, url, navigation }) => {
 
 const Row = styled.View`
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
+
+const Container = styled.View``;
 
 const Button = styled.TouchableOpacity`
   height: ${hp("14%")}px;
-  width: ${wp("45%")}px;
-  background-color:  #d6dbdf;
+  width: ${wp("90%")}px;
+  background-color: #fff;
   border-radius: 20px;
-  padding-top: ${hp("2%")}px;
+  align-self: center;
+  justify-content: center;
   padding-left: ${hp("2%")}px;
-  margin-bottom: ${hp("3%")}px;
+  margin-bottom: ${hp("2%")}px;
 `;
 
 const Name = styled.Text`
-  color: #fff;
+  color: #000;
   font-size: ${hp("3%")}px;
   font-family: "Avenir-Medium";
 `;
 
 const Number = styled.Text`
-  color: #fff;
-  margin-top: ${hp("1%")}px;
+  color: #000;
+  margin-top: ${hp("0.3%")}px;
   font-family: "Avenir-Heavy";
 `;
 
 const Image = styled.Image`
-  height: ${hp("8%")}px;
-  width: ${hp("8%")}px;
-  margin-left: ${wp("15%")}px;
+  height: ${hp("12%")}px;
+  width: ${hp("12%")}px;
+  margin-right: ${wp("5%")}px;
 `;
 
 export default ButtonPokemon;
