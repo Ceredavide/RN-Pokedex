@@ -16,9 +16,9 @@ const Stack: React.FC = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Navigator headerMode="none">
-          <Screen name="Home" component={HomeScreen} />
           <Screen name="Pokedex" component={PokedexScreen} />
           <Screen name="Pokemon" component={PokemonScreen} />
+          <Screen name="Home" component={HomeScreen} />
         </Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

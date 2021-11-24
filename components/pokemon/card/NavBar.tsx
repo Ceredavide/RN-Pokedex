@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { ReactElement, useState } from "react"
 import { StyleSheet, View } from "react-native"
 
 import {
@@ -12,15 +12,21 @@ import About from "./About"
 import Stats from "./Stats"
 
 import Moves from "./Moves"
+import PokemonModel from "../../../models/Pokemon";
 
-const NavBar = ({ pokemon, color }) => {
+interface Props {
+    pokemon: PokemonModel,
+    color: string
+}
+
+const NavBar: React.FC<Props> = ({ pokemon, color }) => {
     const [content, setContent] = useState("about")
 
     return (
         <View>
             <View style={styles.navButtons}>
                 <NavButton name="about" color={color} content={content} setContent={setContent} />
-                <NavButton name="stats" color={color} content={content} setContent={setContent} />
+                {/* <NavButton name="stats" color={color} content={content} setContent={setContent} /> */}
                 <NavButton name="evolutions" color={color} content={content} setContent={setContent} />
                 <NavButton name="moves" color={color} content={content} setContent={setContent} />
             </View>
@@ -28,12 +34,12 @@ const NavBar = ({ pokemon, color }) => {
         </View>
     )
 
-    function renderContent(content) {
+    function renderContent(content: string): ReactElement {
         switch (content) {
             case "about":
                 return <About pokemon={pokemon} />
-            case "stats":
-                return <Stats pokemon={pokemon} />
+            // case "stats":
+            //     return <Stats stats={pokemon.stats} />
             case "moves":
                 return <Moves moves={pokemon.moves} />
             default:
@@ -49,7 +55,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         width: wp("100%"),
-        paddingHorizontal: wp("5%")
+        paddingHorizontal: wp("2%")
     },
     body: {
         marginTop: hp("2%")

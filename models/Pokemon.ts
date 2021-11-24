@@ -5,7 +5,7 @@ export default interface Pokemon {
   abilities: Ability[];
   genera: Genera[];
   moves: Move[];
-  stats: Stat[]
+  stats: Stat[];
 }
 
 export type Type = {
@@ -27,35 +27,50 @@ export type Ability = {
 
 export type Genera = {
   genus: string;
-  language: {
-    name: string;
-    url: string;
-  };
+  language: Language;
 };
 
 export type Move = {
   move: {
     name: string;
     url: string;
-  }
+  };
   version_group_details: {
-    level_learned_at: number,
+    level_learned_at: number;
     move_learn_method: {
       name: string;
       url: string;
-    },
+    };
     version_group: {
       name: string;
       url: string;
-    }
-  }[]
-}
+    };
+  }[];
+};
 
 export type Stat = {
-  base_stat : number
+  base_stat: number;
   effort: number;
-  stat : {
+  stat: {
     name: string;
     url: string;
-  }
-}
+  };
+};
+
+export type FlavorText = {
+  flavor_text_entries: {
+    flavor_text: string;
+    language: Language,
+    version: Version;
+  }[];
+};
+
+export type Language = {
+  name: string;
+  url: string;
+};
+
+export type Version = {
+  name: string;
+  url: string;
+};

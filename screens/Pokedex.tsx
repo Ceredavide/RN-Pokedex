@@ -1,5 +1,7 @@
 import React from "react";
-import { StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
+
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   heightPercentageToDP as hp,
@@ -35,21 +37,23 @@ const PokedexScreen: React.FC<Props> = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView>
+    <>
       <LinearGradient
         start={[1.1, 0.2]}
         end={[0.5, 0.5]}
         colors={["#00B2CA", "#1D4E89"]}
         style={styles.gradient}
       />
-      <Header navigation={navigation} title="Pokedex" />
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={pokedex.pokemon_entries}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.entry_number}
-      />
-    </SafeAreaView>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }} edges={['top']} >
+        <Header navigation={navigation} title="Pokedex" />
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={pokedex.pokemon_entries}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.entry_number.toString()}
+        />
+      </SafeAreaView>
+    </>
   );
 };
 

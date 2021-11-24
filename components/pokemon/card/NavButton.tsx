@@ -33,7 +33,7 @@ const NavButton : React.FC<Props> = ({ name, color, content, setContent }) => {
         },
         buttonText: {
             color: active ? "white" : color,
-            fontSize: hp("1.43%"),
+            fontSize: hp("1.5%"),
             fontFamily: "Avenir-Book",
             textAlign: "center"
         }

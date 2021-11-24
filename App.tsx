@@ -4,7 +4,7 @@ import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 
-import Stack from "./src/navigation/index";
+import Stack from "./navigation/index";
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

@@ -9,7 +9,7 @@ import styled from "styled-components/native";
 
 import { MaterialIcons as Icon } from "@expo/vector-icons";
 
-import capitalizeString from "../../services/capitalizeString";
+import capitalizeString from "@services/capitalizeString";
 
 interface Props {
   index: number;

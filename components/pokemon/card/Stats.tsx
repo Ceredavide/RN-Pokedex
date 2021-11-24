@@ -13,6 +13,7 @@ interface Props {
 }
 
 const Stats: React.FC<Props> = ({ stats }) => {
+
   return (
     <View style={{ flex: 1, width: wp("100 %"), flexDirection: "row" }}>
       {stats.map((item: StatModel, index: number) => (

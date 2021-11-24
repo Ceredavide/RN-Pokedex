@@ -16,7 +16,7 @@ import Error from "./Error";
 
 import TransitionView from "../components/shared/TransitionView";
 import Header from "../components/pokemon/Header";
-import PokemonCard from "../components/pokemon/card/";
+import PokemonCard from "../components/pokemon/card";
 import Loading from "../components/pokemon/Loading";
 
 import useFetchPokemon from "../hooks/useFetchPokemon";
@@ -39,13 +39,14 @@ const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
   if (isLoading) return <Loading />;
   else if (error) return <Error />;
   else {
+  
     const firstType: string = pokemon!.types[0].type.name;
 
     const color: string = typeColors[firstType];
 
     return (
-      <Screen color={color} forceInset={{ bottom: "never" }}>
-        {pokemon!.types.length === 1 ? null: 
+      <Screen color={color}  edges={['top']}>
+        {pokemon!.types.length !== 1 &&
           <LinearGradient
           start={{ x: 0.4, y: 0.11 }}
           end={{ x: 0.1, y: 0.4 }}
@@ -60,7 +61,7 @@ const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
         />}
         <StatusBar barStyle="light-content" />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Header index={index} pokemon={pokemon} navigation={navigation} />
+          {/* <Header index={index} pokemon={pokemon} navigation={navigation} /> */}
           <TransitionView>
             <Image source={{ uri: imageUrl }} />
           </TransitionView>

@@ -8,14 +8,14 @@ import handleError from "../services/handleError";
 const useFetchPokemon = (url: string) => {
   const [isLoading, setIsloading] = useState<boolean>(true);
   const [error, setError] = useState<Object | null>(null);
-  const [pokemon, setPokemon] = useState<PokemonInterface>();
+  const [pokemon, setPokemon] = useState<PokemonInterface | null>(null);
 
   useEffect(() => {
     const fetchPokemon = async () => {
       setIsloading(true);
       try {
-        const response1 = await axios.get(url);
-        const response2 = await axios.get(
+        const response1: any = await axios.get(url);
+        const response2 : any = await axios.get(
           response1.data.varieties[0].pokemon.url
         );
 
@@ -27,7 +27,7 @@ const useFetchPokemon = (url: string) => {
         setError(null);
 
         setPokemon({ ...response1.data, ...response2.data });
-      } catch (error) {
+      } catch (error: any) {
         setError(error);
         handleError(error);
       } finally {
