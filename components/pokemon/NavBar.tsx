@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react"
+import { ReactElement, useState } from "react"
 import { StyleSheet, View } from "react-native"
 
 import {
@@ -9,13 +9,13 @@ import {
 import NavButton from "./NavButton"
 
 import About from "./About"
-import Stats from "./Stats"
+// import Stats from "./Stats"
 
 import Moves from "./Moves"
-import PokemonModel from "../../../models/Pokemon";
+import IPokemon from "@interfaces/Pokemon";
 
 interface Props {
-    pokemon: PokemonModel,
+    pokemon: IPokemon,
     color: string
 }
 
@@ -50,15 +50,11 @@ const NavBar: React.FC<Props> = ({ pokemon, color }) => {
 
 const styles = StyleSheet.create({
     navButtons: {
-        marginVertical: hp("2%"),
         alignSelf: "center",
         flexDirection: "row",
         justifyContent: "space-around",
         width: wp("100%"),
         paddingHorizontal: wp("2%")
-    },
-    body: {
-        marginTop: hp("2%")
     }
 })
 

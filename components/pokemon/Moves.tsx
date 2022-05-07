@@ -1,8 +1,7 @@
-import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-import { Move } from "../../../models/Pokemon";
+import { Move } from "@interfaces/Pokemon";
 
 interface Props {
   moves: Move[];

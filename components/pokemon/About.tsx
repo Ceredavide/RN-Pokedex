@@ -1,34 +1,36 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-import styled from "styled-components/native";
-
-import Pokemon, { Ability } from "../../../models/Pokemon";
+import IPokemon, { Ability } from "@interfaces/Pokemon";
 
 interface Props {
-  pokemon: Pokemon;
+  pokemon: IPokemon;
 }
 
 const About: React.FC<Props> = ({ pokemon }) => {
   return (
-    <Container>
+    <View style={styles.container}>
       <Row name="Weight" value={`${pokemon.weight / 10} Kg`} />
       <Row name="Height" value={`${pokemon.height / 10} Meters`} />
       <Row name="Species" value={pokemon.genera[7].genus} />
-      <View style={{ ...styles.containerText, flexDirection: "column" }}>
-        <Name>Abilities:</Name>
+      <View style={{ ...styles.containerText }}>
+        <Text style={styles.name}>Abilities:</Text>
         <View style={{ flexDirection: "row" }}>
           {pokemon.abilities.map((item: Ability, index: number) => {
-            return <Value key={index}>{item.ability.name} </Value>;
+            return (
+              <Text style={styles.value} key={index}>
+                {item.ability.name}{" "}
+              </Text>
+            );
           })}
         </View>
       </View>
-    </Container>
+    </View>
   );
 };
 
@@ -40,33 +42,30 @@ interface RowProps {
 const Row: React.FC<RowProps> = ({ name, value }) => {
   return (
     <View style={styles.containerText}>
-      <Name>{name}:</Name>
-      <Value>{value}</Value>
+      <Text style={styles.name}>{name}:</Text>
+      <Text style={styles.value}>{value}</Text>
     </View>
   );
 };
 
-const Container = styled.View`
-  align-self: center;
-`;
-
-const Name = styled.Text`
-  font-size: ${hp("2%")}px;
-  font-family: "Avenir-Medium";
-  font-weight: bold;
-`;
-
-const Value = styled.Text`
-  font-size: ${hp("2%")}px;
-  font-family: "Avenir-Medium";
-`;
-
 const styles = StyleSheet.create({
+  container: {
+    alignSelf: "center",
+  },
   containerText: {
-    flexDirection: "row",
     justifyContent: "space-between",
     width: wp("70%"),
     marginTop: hp("2%"),
+    flexDirection: "column",
+  },
+  name: {
+    fontSize: hp("2%"),
+    fontFamily: "Avenir-Medium",
+    fontWeight: "bold",
+  },
+  value: {
+    fontSize: hp("2%"),
+    fontFamily: "Avenir-Medium",
   },
 });
 

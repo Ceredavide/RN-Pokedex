@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import {
@@ -6,25 +5,25 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
-import typeColors from "../../../constants/colors";
-import typeIcons from "../../../constants/icons";
+import { typeColors } from "@constants/Colors";
+import typeIcons from "@constants/icons";
 
-import { Type as TypeModel } from "../../../models/Pokemon";
+import { Type as TypeModel } from "@interfaces/Pokemon";
 
 interface Props {
-  types: TypeModel[]| null;
+  types: TypeModel[] | null;
 }
 
 const Types: React.FC<Props> = ({ types }) => {
   return (
     <View style={styles.container}>
-      {types?.map((item) => 
+      {types?.map((item) => (
         <Type
           key={item.slot}
           name={item.type.name}
           color={typeColors[item.type.name]}
         />
-      )}
+      ))}
     </View>
   );
 };
@@ -36,7 +35,9 @@ interface TypeProps {
 
 const Type: React.FC<TypeProps> = ({ name, color }) => {
   return (
-    <View style={{ ...styles.type, backgroundColor: color }}>
+    <View
+      style={{ ...styles.type, backgroundColor: color, shadowColor: color }}
+    >
       {typeIcons[name]}
       <Text style={styles.text}>{name.toUpperCase()}</Text>
     </View>
@@ -59,8 +60,13 @@ const styles = StyleSheet.create({
     width: wp("30%"),
     justifyContent: "center",
     borderRadius: 20,
-    borderColor: "white",
-    borderWidth: 0.5,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 10.0,
+    elevation: 20,
   },
   text: {
     alignSelf: "center",
