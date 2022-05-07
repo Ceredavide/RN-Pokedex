@@ -1,4 +1,27 @@
-const typeColors: typeColor  = {
+const tintColorLight = "#2f95dc";
+const tintColorDark = "#fff";
+
+type typeColor = {
+  [key: string]: string;
+};
+
+const light: Object = {
+  text: "#000",
+  background: "#fff",
+  tint: tintColorLight,
+  tabIconDefault: "#ccc",
+  tabIconSelected: tintColorLight,
+};
+
+const dark: Object = {
+  text: "#fff",
+  background: "#000",
+  tint: tintColorDark,
+  tabIconDefault: "#ccc",
+  tabIconSelected: tintColorDark,
+};
+
+const typeColors: typeColor = {
   bug: "#92BC2C",
   dark: "#595761",
   dragon: "#0C69C8",
@@ -19,17 +42,8 @@ const typeColors: typeColor  = {
   water: "#559EDF",
 };
 
-type typeColor = {
-  [key: string]: string 
-}
-
-export const colorsArr: string[] = [
-  "#0C69C8",
-  "#EDD53E",
-  "#5FBC51",
-  "#70CCBD",
-  "#F66F71",
-  "#C5B489",
-];
-
-export default typeColors;
+export {
+  light,
+  dark,
+  typeColors,
+};
