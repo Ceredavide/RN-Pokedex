@@ -1,92 +1,84 @@
-import React from "react";
-
-import styled from "styled-components/native";
+import { StyleSheet, View ,TouchableOpacity, Image, Text } from "react-native";
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-import capitalizeString from "../../services/capitalizeString";
-import getImageUrl from "../../services/getImageUrl";
+import capitalizeString from "@utils/capitalizeString";
+import getImageUrl from "@utils/getImageUrl";
 
+//TODO: migliorare interfaccia
 interface Props {
-  name: string;
-  index: number;
-  url: string;
+  pokemon: any;
   navigation: any;
 }
 
-const ButtonPokemon: React.FC<Props> = ({ name, index, url, navigation }) => {
+const ButtonPokemon: React.FC<Props> = ({
+  pokemon,
+  navigation: { navigate },
+}) => {
+  const {
+    entry_number,
+    pokemon_species: { name, url },
+  } = pokemon;
+
   const imgUri = getImageUrl(url);
 
-  function renderNumber(index: number) {
-    if (index < 100) {
-      if (index < 10) {
-        return `#00${index}`;
-      }
-      return `#0${index}`;
-    } else {
-      return `#${index}`;
-    }
-  }
-
   function goToPokemon() {
-    navigation.navigate("Pokemon", { index: index, name: name, url: url });
+    navigate("Pokemon", { index: entry_number, name: name, url: url });
   }
 
   return (
-    <Button onPress={goToPokemon}>
-      <Row>
-        <Container>
-          <Name>{capitalizeString(name)}</Name>
-          <Number>{renderNumber(index + 1)}</Number>
-        </Container>
+    <TouchableOpacity style={styles.button} onPress={goToPokemon}>
+      <View style={styles.row}>
+        <View>
+          <Text style={styles.name}>{capitalizeString(name)}</Text>
+          <Text style={styles.number}>#{entry_number}</Text>
+        </View>
         <Image
           resizeMethod="scale"
           resizeMode="contain"
+          style={styles.image}
           source={{ uri: imgUri }}
         />
-      </Row>
-    </Button>
+      </View>
+    </TouchableOpacity>
   );
 };
 
-const Row = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Container = styled.View``;
-
-const Button = styled.TouchableOpacity`
-  height: ${hp("14%")}px;
-  width: ${wp("90%")}px;
-  background-color: #fff;
-  border-radius: 20px;
-  align-self: center;
-  justify-content: center;
-  padding-left: ${hp("2%")}px;
-  margin-bottom: ${hp("2%")}px;
-`;
-
-const Name = styled.Text`
-  color: #000;
-  font-size: ${hp("3%")}px;
-  font-family: "Avenir-Medium";
-`;
-
-const Number = styled.Text`
-  color: #000;
-  margin-top: ${hp("0.3%")}px;
-  font-family: "Avenir-Heavy";
-`;
-
-const Image = styled.Image`
-  height: ${hp("12%")}px;
-  width: ${hp("12%")}px;
-  margin-right: ${wp("5%")}px;
-`;
+const styles = StyleSheet.create({
+  button: {
+    height: hp("14%"),
+    width: wp("90%"),
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    paddingLeft: hp("4%"),
+    paddingRight: hp("3%"),
+    marginBottom: hp("2%"),
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  image: {
+    height: hp("14%"),
+    width: hp("14%"),
+    borderRadius: 20,
+  },
+  name: {
+    color: "#000",
+    fontSize: hp("3%"),
+    fontFamily: "Avenir-Medium",
+  },
+  number: {
+    color: "#000",
+    marginTop: hp("0.3%"),
+    fontFamily: "Avenir-Heavy",
+  },
+});
 
 export default ButtonPokemon;
