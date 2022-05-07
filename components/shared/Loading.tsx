@@ -1,4 +1,3 @@
-import React from "react"
 import { StyleSheet, StatusBar, View, Image } from "react-native"
 
 import {
