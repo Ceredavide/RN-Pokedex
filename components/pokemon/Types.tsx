@@ -1,52 +1,49 @@
 import { StyleSheet, Text, View } from "react-native";
 
+import { createIconSetFromIcoMoon } from "@expo/vector-icons";
+
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
 import { typeColors } from "@constants/Colors";
-import typeIcons from "@constants/icons";
 
-import { Type as TypeModel } from "@interfaces/Pokemon";
+import { IType } from "@interfaces/Pokemon";
 
 interface Props {
-  types: TypeModel[] | null;
+  types: IType[] | null;
 }
+
+const TypeIcon = createIconSetFromIcoMoon(
+  require("@assets/fonts/selection.json"),
+  "IcoMoon",
+  "icomoon.ttf"
+);
 
 const Types: React.FC<Props> = ({ types }) => {
   return (
     <View style={styles.container}>
-      {types?.map((item) => (
-        <Type
-          key={item.slot}
-          name={item.type.name}
-          color={typeColors[item.type.name]}
-        />
+      {types?.map((item: IType, index: number) => (
+        <View
+          key={index}
+          style={{
+            ...styles.type,
+            backgroundColor: typeColors[item.type.name],
+            shadowColor: typeColors[item.type.name],
+          }}
+        >
+          <TypeIcon key={item.slot} name={item.type.name} color="#FFF" />
+          <Text style={styles.text}>{item.type.name.toUpperCase()}</Text>
+        </View>
       ))}
-    </View>
-  );
-};
-
-interface TypeProps {
-  name: string;
-  color: string;
-}
-
-const Type: React.FC<TypeProps> = ({ name, color }) => {
-  return (
-    <View
-      style={{ ...styles.type, backgroundColor: color, shadowColor: color }}
-    >
-      {typeIcons[name]}
-      <Text style={styles.text}>{name.toUpperCase()}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: wp("70%"),
+    width: wp("77%"),
     alignSelf: "center",
     justifyContent: "space-evenly",
     padding: hp("1%"),
@@ -62,11 +59,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     shadowOffset: {
       width: 0,
-      height: 0,
+      height: 1,
     },
-    shadowOpacity: 0.58,
-    shadowRadius: 10.0,
-    elevation: 20,
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
   },
   text: {
     alignSelf: "center",
