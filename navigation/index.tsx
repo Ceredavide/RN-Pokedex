@@ -1,28 +1,51 @@
-import React from "react";
+import { ColorSchemeName } from "react-native";
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import PokedexScreen from "../screens/PokedexScreen";
+import PokemonScreen from "../screens/PokemonScreen";
+import { RootStackParamList } from "./types";
+// import LinkingConfiguration from './LinkingConfiguration';
 
-import HomeScreen from "../screens/Home";
-import PokedexScreen from "../screens/Pokedex";
-import PokemonScreen from "../screens/Pokemon";
-
-const { Navigator, Screen } = createStackNavigator();
-
-const Stack: React.FC = () => {
+export default function Navigation({
+  colorScheme,
+}: {
+  colorScheme: ColorSchemeName;
+}) {
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Navigator headerMode="none">
-          <Screen name="Pokedex" component={PokedexScreen} />
-          <Screen name="Pokemon" component={PokemonScreen} />
-          <Screen name="Home" component={HomeScreen} />
-        </Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <NavigationContainer
+      // linking={LinkingConfiguration}
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    >
+      <RootNavigator />
+    </NavigationContainer>
   );
-};
+}
 
-export default Stack;
+const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
+
+function RootNavigator() {
+  return (
+    <Navigator>
+      <Screen
+        name="Pokedex"
+        component={PokedexScreen}
+        options={{ title: "Pokedex" }}
+      />
+      <Screen
+        name="Pokemon"
+        component={PokemonScreen}
+        options={{ headerShown: false}}
+      />
+    </Navigator>
+  );
+}
+
+// const PokedexOptions = ({route : }) =>  {
+//   title:
+// }
