@@ -6,7 +6,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-import IPokemon, { Ability } from "@interfaces/Pokemon";
+import IPokemon, { IAbility } from "@interfaces/Pokemon";
 
 interface Props {
   pokemon: IPokemon;
@@ -21,7 +21,7 @@ const About: React.FC<Props> = ({ pokemon }) => {
       <View style={{ ...styles.containerText }}>
         <Text style={styles.name}>Abilities:</Text>
         <View style={{ flexDirection: "row" }}>
-          {pokemon.abilities.map((item: Ability, index: number) => {
+          {pokemon.abilities.map((item: IAbility, index: number) => {
             return (
               <Text style={styles.value} key={index}>
                 {item.ability.name}{" "}

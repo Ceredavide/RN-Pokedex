@@ -1,16 +1,16 @@
-export default interface Pokemon {
+export default interface IPokemon {
     name: string;
     weight: number;
     height: number;
-    flavor_text_entries: FlavorText[]
-    types: Type[];
-    abilities: Ability[];
-    genera: Genera[];
-    moves: Move[];
-    stats: Stat[];
+    flavor_text_entries: IFlavorText[]
+    types: IType[];
+    abilities: IAbility[];
+    genera: IGenera[];
+    moves: IMove[];
+    stats: IStat[];
   }
   
-  export type Type = {
+  export type IType = {
     slot: number;
     type: {
       name: string;
@@ -18,7 +18,7 @@ export default interface Pokemon {
     };
   };
   
-  export type Ability = {
+  export type IAbility = {
     slot: number;
     is_hidden: boolean;
     ability: {
@@ -27,12 +27,12 @@ export default interface Pokemon {
     };
   };
   
-  export type Genera = {
+  export type IGenera = {
     genus: string;
-    language: Language;
+    language: ILanguage;
   };
   
-  export type Move = {
+  export type IMove = {
     move: {
       name: string;
       url: string;
@@ -50,7 +50,7 @@ export default interface Pokemon {
     }[];
   };
   
-  export type Stat = {
+  export type IStat = {
     base_stat: number;
     effort: number;
     stat: {
@@ -59,18 +59,18 @@ export default interface Pokemon {
     };
   };
   
-  export type FlavorText = {
+  export type IFlavorText = {
       flavor_text: string;
-      language: Language,
-      version: Version;
+      language: ILanguage,
+      version: IVersion;
   };
   
-  export type Language = {
+  export type ILanguage = {
     name: string;
     url: string;
   };
   
-  export type Version = {
+  export type IVersion = {
     name: string;
     url: string;
   };

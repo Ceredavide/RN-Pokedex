@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-import { Move } from "@interfaces/Pokemon";
+import { IMove } from "@interfaces/Pokemon";
 
 interface Props {
-  moves: Move[];
+  moves: IMove[];
 }
 
 const Moves: React.FC<Props> = ({ moves }) => {
