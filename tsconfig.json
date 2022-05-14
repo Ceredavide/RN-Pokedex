@@ -12,6 +12,7 @@
       "@screens/*": ["screens/*"],
       "@utils/*": ["utils/*"],
       "@interfaces/*": ["interfaces/*"],
+      "@navigation/*": ["navigation/*"],
     },
     "lib": ["dom", "esnext"]
   },
