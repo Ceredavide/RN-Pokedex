@@ -1,61 +1,43 @@
-import React from "react";
-
+import { StyleSheet, TouchableOpacity } from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
-import styled from "styled-components/native";
+import { useNavigation } from "@react-navigation/core";
 
-import { MaterialIcons as Icon } from "@expo/vector-icons";
-
-import capitalizeString from "@services/capitalizeString";
+import AntDesignIcon from "@expo/vector-icons/AntDesign";
 
 interface Props {
-  index: number;
-  pokemon: any;
-  navigation: any;
+  color: string;
 }
 
-const Header: React.FC<Props> = ({ index, pokemon, navigation }) => {
+const Header: React.FC<Props> = ({ color }) => {
+  const navigation = useNavigation();
+
   return (
-    <Container>
-      <Icon
-        name="keyboard-arrow-left"
-        size={hp("5%")}
-        color="white"
-        onPress={navigation.goBack}
-      />
-      <Row>
-        <Title>{capitalizeString(pokemon.name)}</Title>
-        <Number>{`#${index + 1}`}</Number>
-      </Row>
-    </Container>
+    <TouchableOpacity
+      style={{ ...styles.header, backgroundColor: color }}
+      onPress={() => navigation.goBack()}
+    >
+      <AntDesignIcon name="arrowleft" size={hp("3.2%")} color="#FFF" />
+    </TouchableOpacity>
   );
 };
 
-const Container = styled.View`
-  padding: ${hp("1%")}px;
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Title = styled.Text`
-  padding-left: ${wp("3%")}px;
-  font-size: ${hp("5.5%")}px;
-  font-family: "Avenir-Book";
-  color: #fff;
-`;
-
-const Number = styled.Text`
-  margin-right: ${wp("5%")}px;
-  font-size: ${hp("3.7%")}px;
-  font-weight: bold;
-  color: #fff;
-`;
+const styles = StyleSheet.create({
+  header: {
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    top: hp("5.5%"),
+    left: wp("4.5"),
+    right: 10,
+    height: hp("6%"),
+    width: hp("6%"),
+    borderRadius: 100,
+    
+  },
+});
 
 export default Header;

@@ -2,19 +2,14 @@
   "expo": {
     "name": "RN-Pokedex",
     "slug": "RN-Pokedex",
-    "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.jpg",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,17 +18,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": true
     },
-    "packagerOpts": {
-      "config": "metro.config.js",
-      "sourceExts": [
-        "js",
-        "jsx",
-        "svg",
-        "ts",
-        "tsx"
-      ]
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      }
     }
   }
 }

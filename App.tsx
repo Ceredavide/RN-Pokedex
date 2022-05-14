@@ -1,39 +1,22 @@
-import React, { useState } from "react";
+import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { Asset } from "expo-asset";
-import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
+import useCachedResources from '@hooks/useCachedResources';
+import useColorScheme from '@hooks/useColorScheme';
+import Navigation from './navigation';
 
-import Stack from "./navigation/index";
+export default function App() {
+  const isLoadingComplete = useCachedResources();
+  const colorScheme = useColorScheme();
 
-const App: React.FC = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  if (isLoading) {
+  if (!isLoadingComplete) {
+    return null;
+  } else {
     return (
-      <AppLoading
-        startAsync={loadResourcesAsync}
-        onError={console.error}
-        onFinish={() => setIsLoading(false)}
-      />
+      <SafeAreaProvider>
+        <Navigation colorScheme={colorScheme} />
+        <StatusBar />
+      </SafeAreaProvider>
     );
   }
-
-  return <Stack />;
-};
-
-async function loadResourcesAsync() {
-  try {
-    await Asset.loadAsync([require("./assets/images/loadingPokemon.gif")]);
-    await Font.loadAsync({
-      "Avenir-Heavy": require("./assets/fonts/Avenir-Heavy.ttf"),
-      "Avenir-Roman": require("./assets/fonts/Avenir-Roman.otf"),
-      "Avenir-Medium": require("./assets/fonts/Avenir-Medium.otf"),
-      "Avenir-Book": require("./assets/fonts/Avenir-Book.otf"),
-    });
-  } catch (error) {
-    console.error(error);
-  }
 }
-
-export default App;
