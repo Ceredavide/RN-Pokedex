@@ -15,7 +15,10 @@ export default function useCachedResources() {
         // Load fonts
         await Font.loadAsync({
           ...FontAwesome.font,
-          'IcoMoon': require('../assets/fonts/icomoon.ttf'),
+          'IcoMoon': require('@assets/fonts/icomoon.ttf'),
+          'Avenir-Heavy': require('@assets/fonts/Avenir-Heavy.otf'),
+          'Avenir-Medium': require('@assets/fonts/Avenir-Medium.otf'),
+          'Avenir-Book': require('@assets/fonts/Avenir-Book.otf'),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
