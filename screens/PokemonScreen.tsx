@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, View, StatusBar, Image } from "react-native";
+import { StyleSheet, ScrollView, StatusBar, Image } from "react-native";
 
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
@@ -11,17 +11,16 @@ import TransitionView from "@components/shared/FadeInView";
 import PokemonCard from "@components/pokemon";
 
 import { typeColors } from "@constants/Colors";
+import { PokemonScreenNavProps } from "@navigation/types";
 
 import useFetchPokemon from "@hooks/useFetchPokemon";
 
 import getImageUrl from "@utils/getImageUrl";
+import Header from "@components/pokemon/Header";
 
-interface Props {
-  route: any;
-  navigation: any;
-}
 
-const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
+const PokemonScreen: React.FC<PokemonScreenNavProps> = ({ route }) => {
+
   const { url } = route.params;
 
   const { isLoading, pokemon, error } = useFetchPokemon(url);
@@ -33,11 +32,13 @@ const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
 
     const color: string = typeColors[firstType];
 
+    const hasMultipleTypes: boolean = pokemon!.types.length !== 1;
+
     return (
-      <View
-        style={{ ...styles.screen, backgroundColor: color }}
-      >
-        {pokemon!.types.length !== 1 && (
+      <>
+        <StatusBar barStyle="light-content" />
+
+        {hasMultipleTypes && (
           <LinearGradient
             start={{ x: 1, y: 0.35 }}
             end={{ x: 0.1, y: 0.5 }}
@@ -45,8 +46,13 @@ const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
             style={styles.gradient}
           />
         )}
-        <StatusBar barStyle="light-content" />
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={{
+            ...styles.screen,
+            backgroundColor: hasMultipleTypes ? "transparent" : color,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
           {/* TODO: Migliorare caricamento immagine */}
           <TransitionView>
             <Image
@@ -57,7 +63,8 @@ const PokemonScreen: React.FC<Props> = ({ route, navigation }) => {
           </TransitionView>
           <PokemonCard pokemon={pokemon!} color={color} />
         </ScrollView>
-      </View>
+        <Header />
+      </>
     );
   }
 };
@@ -76,7 +83,7 @@ const styles = StyleSheet.create({
   image: {
     height: hp("27%"),
     width: hp("30%"),
-    marginTop: -hp("1.5%"),
+    marginTop: hp("3.5%"),
     alignSelf: "center",
   },
 });
