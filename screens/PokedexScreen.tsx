@@ -10,13 +10,10 @@ import ButtonPokemon from "../components/pokedex/ButtonPokemon";
 
 import pokedex from "@constants/pokedex";
 
-//TODO: migliorare Props
-interface Props {
-  navigation: any;
-}
+import {PokedexScreenNavProps} from "@navigation/types"
 
-const PokedexScreen: React.FC<Props> = ({ navigation }) => {
-  const selectedPokedex = pokedex["gen1"];
+const PokedexScreen: React.FC<PokedexScreenNavProps> = ({ navigation }) => {
+  const selectedPokedex = pokedex["gen3"];
 
   //TODO: migliorare interface
   interface Item {
