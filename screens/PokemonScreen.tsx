@@ -18,9 +18,7 @@ import useFetchPokemon from "@hooks/useFetchPokemon";
 import getImageUrl from "@utils/getImageUrl";
 import Header from "@components/pokemon/Header";
 
-
 const PokemonScreen: React.FC<PokemonScreenNavProps> = ({ route }) => {
-
   const { url } = route.params;
 
   const { isLoading, pokemon, error } = useFetchPokemon(url);
@@ -30,14 +28,12 @@ const PokemonScreen: React.FC<PokemonScreenNavProps> = ({ route }) => {
   else {
     const firstType: string = pokemon!.types[0].type.name;
 
-    const color: string = typeColors[firstType];
+    const mainColor: string = typeColors[firstType];
 
     const hasMultipleTypes: boolean = pokemon!.types.length !== 1;
 
     return (
       <>
-        <StatusBar barStyle="light-content" />
-
         {hasMultipleTypes && (
           <LinearGradient
             start={{ x: 1, y: 0.35 }}
@@ -49,7 +45,7 @@ const PokemonScreen: React.FC<PokemonScreenNavProps> = ({ route }) => {
         <ScrollView
           style={{
             ...styles.screen,
-            backgroundColor: hasMultipleTypes ? "transparent" : color,
+            backgroundColor: hasMultipleTypes ? "transparent" : mainColor,
           }}
           showsVerticalScrollIndicator={false}
         >
@@ -61,9 +57,9 @@ const PokemonScreen: React.FC<PokemonScreenNavProps> = ({ route }) => {
               style={styles.image}
             />
           </TransitionView>
-          <PokemonCard pokemon={pokemon!} color={color} />
+          <PokemonCard pokemon={pokemon!} color={mainColor} />
         </ScrollView>
-        <Header />
+        <Header color={mainColor} />
       </>
     );
   }

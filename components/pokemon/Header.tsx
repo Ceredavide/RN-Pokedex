@@ -8,13 +8,19 @@ import { useNavigation } from "@react-navigation/core";
 
 import AntDesignIcon from "@expo/vector-icons/AntDesign";
 
-const Header: React.FC<any> = () => {
+interface Props {
+  color: string;
+}
 
+const Header: React.FC<Props> = ({ color }) => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity style={styles.header} onPress={() => navigation.goBack()}>
-      <AntDesignIcon name="arrowleft" size={32} color="#FFF" />
+    <TouchableOpacity
+      style={{ ...styles.header, backgroundColor: color }}
+      onPress={() => navigation.goBack()}
+    >
+      <AntDesignIcon name="arrowleft" size={hp("3.2%")} color="#FFF" />
     </TouchableOpacity>
   );
 };
@@ -23,13 +29,14 @@ const styles = StyleSheet.create({
   header: {
     alignItems: "center",
     justifyContent: "center",
-    width: 70,
     position: "absolute",
-    top: hp("4.5%"),
-    left: wp("3.5"),
+    top: hp("5.5%"),
+    left: wp("4.5"),
     right: 10,
-    height: 70,
+    height: hp("6%"),
+    width: hp("6%"),
     borderRadius: 100,
+    
   },
 });
 
