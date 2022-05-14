@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     padding: hp("2%"),
     borderRadius: 40,
     width: wp("100%"),
-    minHeight: hp("75%"),
+    minHeight: hp("70%"),
     alignSelf: "center",
     backgroundColor: "white",
   },
