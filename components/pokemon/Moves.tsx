@@ -10,9 +10,9 @@ interface Props {
 const Moves: React.FC<Props> = ({ moves }) => {
   return (
     <View>
-      {moves.map((item, index) => {
+      {moves.map((item : IMove, index) => {
 
-        const moveName: string = item.move.name.replaceAll('-', ' ');
+        const moveName: string = item.move.name.replace('-', ' ');
 
         return (
           <View key={index} style={styles.type}>
