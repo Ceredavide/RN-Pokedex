@@ -18,13 +18,14 @@ interface Props {
 }
 
 const PokemonCard: React.FC<Props> = ({ pokemon, color }) => {
+
+  const flavorText = pokemon.flavor_text_entries[6].flavor_text.replace(/\s+/g, ' ').replace("POKéMON", "pokémon").trim();
+  
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{capitalizeString(pokemon.name)}</Text>
       <Types types={pokemon.types} />
-      <Text style={styles.flavorText}>
-        {pokemon.flavor_text_entries[6].flavor_text.replace(/\n/g, " ")}
-      </Text>
+      <Text style={styles.flavorText}>{flavorText}</Text>
       <NavBar pokemon={pokemon} color={color} />
     </View>
   );
@@ -33,20 +34,19 @@ const PokemonCard: React.FC<Props> = ({ pokemon, color }) => {
 const styles = StyleSheet.create({
   title: {
     fontFamily: "Avenir-Book",
-    fontWeight:"500",
+    fontWeight: "500",
     fontSize: hp("4.4%"),
     textAlign: "center",
     color: "#4F4F4F",
-    marginBottom: hp("1%"),
+    marginBottom: hp("2%"),
   },
   flavorText: {
-    marginVertical: hp("1%"),
-    height: hp("9%"),
-    width: wp("80%"),
-    fontSize: hp("1.8%"),
+    paddingVertical: hp("3%"),
+    width: wp("87.5%"),
+    fontSize: hp("1.9%"),
     fontFamily: "Avenir-Book",
-    alignSelf: "center",
-    textAlign: "justify",
+    textAlign: "center",
+    alignSelf: "center"
   },
   card: {
     padding: hp("2%"),
