@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     width: wp("77%"),
     alignSelf: "center",
     justifyContent: "space-evenly",
-    padding: hp("1%"),
     flexDirection: "row",
   },
   type: {
